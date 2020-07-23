@@ -1,4 +1,4 @@
-# BookAdmin
+# BookAdmin 简单书城管理项目
 Managing books
 
 技术栈:springboot mybatis jsp jquery ajax mysql8
