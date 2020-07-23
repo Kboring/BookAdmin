@@ -195,7 +195,7 @@ public class HelloController {
 
     //******************************************************************************
 
-    @RequestMapping({"/addBook"})
+    @RequestMapping("/addBook")
     public String addBook(Model model,HttpServletRequest request) {
         List<Book> allBook = userService.allBook(); // 查找全部的书籍'
         request.getSession().setAttribute("allBook",allBook);
