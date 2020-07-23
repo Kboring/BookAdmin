@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boring.springwebapp.dao.UserMapper">
+
+    <!--    登录时 查找用户来验证-->
+    <select id="findUser" parameterType="map" resultType="User">
+        select * from t_user where username=#{map.username} and password=#{map.password}
+    </select>
+
+    <insert id="addUser" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user (username, age, password, classname)
+        values (#{map.username},#{map.age},#{map.password},#{map.classname})
+    </insert>
+
+    <!--    根据username查找订阅的书籍-->
+    <select id="findBookByName" parameterType="string" resultType="Book">
+        select * from bootvue.book as a where a.book_id
+        IN (select book_id from bootvue.order as b where b.order_username = #{username});
+    </select>
+
+    <!--     用户主页添加新的书籍-->
+    <insert id="addBook" parameterType="map" useGeneratedKeys="true" keyProperty="order_id">
+        insert into bootvue.order (book_id, order_username)
+        values (#{map.id},#{map.username});
+    </insert>
+
+    <!--      查找所有的book-->
+    <select id="allBook" resultType="Book">
+        select * from bootvue.book
+    </select>
+
+    <!--      删除书籍-->
+    <delete id="delBookById" parameterType="int">
+        delete from bootvue.order where order.book_id = #{id}
+    </delete>
+
+    <delete id="delBookByName" parameterType="string">
+        delete from bootvue.book where book.book_name=#{bookname}
+    </delete>
+
+    <select id="allUser" resultType="user">
+        select * from bootvue.t_user
+    </select>
+
+    <select id="findUserByName" parameterType="string" resultType="user">
+        select * from bootvue.t_user where t_user.username=#{username}
+    </select>
+
+    <delete id="delUser" parameterType="string">
+        delete from bootvue.t_user where t_user.username = #{username}
+    </delete>
+
+    <select id="findBookByPage" parameterType="map" resultType="book">
+        select * from bootvue.book where book.book_id IN
+        (select order.book_id from bootvue.order where order_username=#{map.username})
+        limit #{map.i},2
+    </select>
+</mapper>

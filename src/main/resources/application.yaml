@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+
+##############################################
+#spring:   采用该种形式定位jsp位置时 应该搭配注解@EnableAutoConfiguration
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/jsp/
+#      suffix: .jsp
+
+##############################################
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/bootvue
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+mybatis:
+  type-aliases-package: com.boring.springwebapp.entity
+  mapper-locations: classpath:mapper/*.xml
+
+#分页pageHelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+
